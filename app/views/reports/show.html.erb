@@ -1,0 +1,240 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @report %>
+<% data =  @report.dim_score %>
+<% colors = Scoring.bar_chart_colors(data) %>
+
+<div class="fond"> <span class="s1">report</span><span class="s2">card</span></div>
+<div class="card">
+  <div class="author">
+  <h2>Dear <%= @report.name %>,</h2>
+  </div>
+  <h1>
+  Thank you for registering for the Women Well-being program by Vyli!
+  </h1>
+  <p>
+  You have taken a positive step towards improving your well-being and your overall life.
+  Our reproductive health is an indicator of our emotional, physical and mental well-being. As
+  much as we like to believe otherwise, we all have been negatively affected by our lifestyle
+  choices.Here stress plays a crucial role, our understanding and management of stress can
+  make all the difference to our life.
+  Keeping this in mind we have created this workshop that empowers you to take charge of
+  your life and its events. Most importantly, take control of yourself.
+  Let’s look at your score to understand your reproductive health quotient from a holistic
+  perspective.
+</p>
+  <div class="thumbnail">
+     <%= bar_chart(data, colors: colors ) %>
+  </div>
+  <div>
+    <fieldset>
+    <legend> Legend </legend>
+    <%= image_tag "legend.png" %>    
+    </fieldset
+  </div>
+  <h6><%= @report.date.day %>, <%= @report.date.strftime("%B") %>,  <%= @report.date.year %><h6>
+
+</div>
+
+<% outcomes_array = Scoring.report_outcomes(@report.dim_score) %>
+
+<% outcomes_array.each do |oa| %>
+<ul class="outcomes">
+  <li>
+  <span class="<%= oa[1]%>"><%= oa[0] %></td>
+  <span class="<%= oa[1]%>"><%= oa[2]%></td>
+  </li>
+</tr>
+<% end %>
+
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+/*Just the background stuff*/
+span.s1 {
+  position: absolute;
+  top: 0;
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #3C4447;
+}
+
+span.s2 {
+  font-weight: 800;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #3C4447;
+}
+
+body {
+  background-color: #9ECAFF;
+  font-family: "Roboto", sans-serif;
+}
+
+/* The card */
+.card {
+  background: white;
+  width: 1200px;
+  display: inline-block;
+  margin: auto;
+  border-radius: 19px;
+  position: relative;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px black;
+  z-index: 9999;  
+}
+
+/* Image on the left side */
+.thumbnail {
+  float: left;
+  left: 30px;
+  top: 30px;
+  height: 300px;
+  width: 1200px;
+  -webkit-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+.high {
+  radius: 30px;
+  background: #FF0000;
+  content: '&nbsp';
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+.medium {
+  radius: 30px;
+  background: #FFCE30;
+  content: '&nbsp';
+}
+
+.low {
+  radius: 30px;
+  background: #008000;
+  content: '&nbsp';
+  color: white;
+}
+
+
+/*object-fit: cover;*/
+/*object-position: center;*/
+img.left {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: auto;
+  width: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* Right side of the card */
+.right {
+  margin-left: 850px;
+  margin-right: 20px;
+}
+
+h1 {
+  padding-top: 15px;
+  font-size: 1.3rem;
+  color: #4B4B4B;
+}
+
+.author {
+  background-color: #9ECAFF;
+  height: 30px;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.author > img {
+  margin-left: 10px;
+  float: left;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+h2 {
+  padding: 0px 5px;
+  margin-right: 6px;
+  text-align: riblogght;
+  font-size: 0.8rem;
+}
+.separator {
+  margin-top: 10px;
+  border: 1px solid #C3C3C3;
+}
+
+p {
+  text-align: justify;
+  padding-top: 10px;
+  font-size: 0.95rem;
+  line-height: 150%;
+  color: #4B4B4B;
+}
+
+/* DATE of release*/
+h5 {
+  position: absolute;
+  left: 30px;
+  bottom: -120px;
+  font-size: 6rem;
+  color: #C3C3C3;
+}
+
+h6 {
+  position: absolute;
+  left: 30px;
+  bottom: -55px;
+  font-size: 2rem;
+  color: #C3C3C3;
+}
+
+
+
+/* Floating action button */
+.fab {
+  position: absolute;
+  right: 50px;
+  bottom: -40px;
+  box-sizing: border-box;
+  padding-top: 18px;
+  background-color: #1875D0;
+  width: 80px;
+  height: 80px;
+  color: white;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.75);
+}
+
+.outcomes {
+  padding:5px;
+  list-style-type: none; /* Remove bullets */
+}
+
+.red {
+  color: #FF0000;
+}
+.yellow {
+  color: #FFCE30;
+}
+.green {
+  color: #008000;
+}
+
+
+</style>

@@ -1,0 +1,18 @@
+
+<p style="color: green"><%= notice %></p>
+
+<h1>Reports</h1>
+
+<div id="reports">
+  <% @reports.each do |report| %>
+    <%= render report %>
+    <p>
+      <%= link_to "#{report.name}'s report", report %> |
+      <%= report.date %> |
+      <%= link_to "Edit this report", edit_report_path(report) %> |
+      <%= button_to "Destroy this report", report, method: :delete %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New report", new_report_path %>
